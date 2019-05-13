@@ -227,7 +227,7 @@ df_beta = pd.DataFrame(beta, columns=['intercet', 'beta1', 'beta2', 'beta3'])
 df = pd.concat([df, df_beta], axis=1)
 df['pred'] = df['intercet'] + df['Mkt-rf'] * df['beta1'] + df['HML'] * df['beta2'] + df['SMB'] * df['beta3']
 
-df['pred_original'] = df['Mkt-rf'] * 0.8325 + df['HML'] * (-0.114) + df['SMB'] * (-0.293)
+df['pred_original'] = df['Mkt-rf'] * 0.8325 + df['HML'] * (-0.114) + df['SMB'] * (-0.293) # original regression coefficient
 df = df[['Mkt-rf', 'pred', 'pred_original']][-100:]
 e1 = (df['pred'] - df['Mkt-rf']).pow(2).sum()
 e2 = (df['pred_original'] - df['Mkt-rf']).pow(2).sum()
