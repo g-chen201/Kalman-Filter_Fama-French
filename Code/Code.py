@@ -7,7 +7,7 @@ import numpy as np
 import math as m
 from scipy.optimize import minimize
 
-pd.set_option('expand_frame_repr', False)  # 当列太多时不换行
+pd.set_option('expand_frame_repr', False)  # do not wrap
 pd.set_option('display.max_rows', 1000)
 
 
@@ -215,11 +215,11 @@ class Filter:
 
 
 
-ibm_model = Filter(r'C:\Users\Jason\Desktop\Kalman\Data\IBM.csv', True)
+ibm_model = Filter('IBM.csv', True)
 ibm_model.estimate()
 
 # test accuracy rate of prediction
-df = pd.read_csv(r'C:\Users\Jason\Desktop\Kalman\Data\IBM.csv')
+df = pd.read_csv('IBM.csv')
 beta = []
 for obs in ibm_model.obs:
     beta.append(obs.upd.beta.T.tolist()[0])
@@ -231,5 +231,3 @@ df['pred_original'] = df['Mkt-rf'] * 0.8325 + df['HML'] * (-0.114) + df['SMB'] *
 df = df[['Mkt-rf', 'pred', 'pred_original']][-100:]
 e1 = (df['pred'] - df['Mkt-rf']).pow(2).sum()
 e2 = (df['pred_original'] - df['Mkt-rf']).pow(2).sum()
-print('x' * 20)
-print(e1, e2)
